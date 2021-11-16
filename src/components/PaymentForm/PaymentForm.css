@@ -1,0 +1,37 @@
+.card {
+  display: block;
+  justify-content: center;
+  align-items: center;
+}
+
+form {
+  align-items: center;
+}
+input {
+  display: block;
+  margin: 10px auto;
+  padding: 8px 16px;
+  font-size: 16px;
+  color: #222;
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+}
+/* input {
+  display: block;
+  margin: 3px;
+  height: 35px;
+  border-radius: 5px;
+  border: 1px solid grey;
+} */
+.number {
+  width: 250px;
+}
+.cvc {
+  width: 100px;
+}
+.btn {
+  width: 250px;
+
+  align-items: center;
+}
