@@ -12,6 +12,7 @@ import {
   GET_PRODUCT_ERROR,
   GET_PRODUCT_LOADING,
   GET_PRODUCT_SUCCESS,
+  SET_SEARCH_RESULTS,
 } from "../utils/constants";
 import {
   productError,
@@ -22,6 +23,7 @@ import {
   productsError,
   productsLoading,
   productsSuccess,
+  setSearchResults,
 } from "./actions/productsActions";
 
 const productsContext = createContext();
@@ -41,6 +43,7 @@ const initialState = {
     ? JSON.parse(localStorage.getItem("cart")).products.length
     : 0,
   cart: {},
+  searchResults: [],
 };
 
 const reducer = (state, action) => {
@@ -100,6 +103,13 @@ const reducer = (state, action) => {
       };
     }
 
+    case SET_SEARCH_RESULTS: {
+      return {
+        ...state,
+        searchResults: action.payload,
+      };
+    }
+
     default:
       return state;
   }
@@ -149,6 +159,7 @@ const ProductsContext = ({ children }) => {
       subPrice: 0,
       product: product,
     };
+    console.log(newProduct);
     newProduct.subPrice = calcSubPrice(newProduct);
 
     //DELETE from cart
@@ -201,6 +212,9 @@ const ProductsContext = ({ children }) => {
 
     if (value === "all") {
       search.delete(query);
+    } else if (Array.isArray(value)) {
+      search.set("price_gte", value[0]);
+      search.set("price_lte", value[1]);
     } else {
       search.set(query, value);
     }
@@ -213,6 +227,20 @@ const ProductsContext = ({ children }) => {
     // dispatch(productsSuccess(data));
   };
 
+  const fetchSearchProducts = async (value) => {
+    try {
+      if (!value) {
+        dispatch(setSearchResults([]));
+        return;
+      }
+      const { data } = await $api(`?q=${value}`);
+      // console.log(data);
+      dispatch(setSearchResults(data));
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+
   const values = {
     products: state.products,
     loading: state.loading,
@@ -222,12 +250,14 @@ const ProductsContext = ({ children }) => {
     productDetailsError: state.productDetails.error,
     cartData: state.cartData,
     cart: state.cart,
+    searchResults: state.searchResults,
     fetchProducts,
     fetchOneProduct,
     addAndDeleteProductInCart,
     getCart,
     changeProductCount,
     fetchByParams,
+    fetchSearchProducts,
   };
 
   return (

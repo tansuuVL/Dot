@@ -11,6 +11,8 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import MyLink from "../../shared/MyLink";
+import { IconButton } from "@material-ui/core";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 const useStyles = makeStyles({
   table: {
@@ -44,11 +46,12 @@ const Cart = () => {
                       <h2>Your shopping list</h2>
                     </TableCell>
 
-                    <TableCell align="right">Image</TableCell>
+                    <TableCell align="center">Image</TableCell>
 
-                    <TableCell align="right">Price</TableCell>
-                    <TableCell align="right">Count</TableCell>
-                    <TableCell align="right">SubTotal</TableCell>
+                    <TableCell align="center">Price</TableCell>
+                    <TableCell align="center">Count</TableCell>
+                    <TableCell align="center">SubTotal</TableCell>
+                    <TableCell align="center">Delete an item</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -57,7 +60,7 @@ const Cart = () => {
                       <TableCell component="th" scope="">
                         {item.product.title}
                       </TableCell>
-                      <TableCell align="right">
+                      <TableCell align="center">
                         <img
                           src={item.product.image}
                           alt=""
@@ -65,8 +68,8 @@ const Cart = () => {
                         />
                       </TableCell>
 
-                      <TableCell align="right">{item.product.price}</TableCell>
-                      <TableCell align="right">
+                      <TableCell align="center">{item.product.price}</TableCell>
+                      <TableCell align="center">
                         <input
                           type="number"
                           value={item.count}
@@ -75,7 +78,13 @@ const Cart = () => {
                           }
                         />
                       </TableCell>
-                      <TableCell align="right">{item.subPrice}</TableCell>
+
+                      <TableCell align="center">{item.subPrice}</TableCell>
+                      <TableCell align="center">
+                        <IconButton align="center">
+                          <DeleteIcon />
+                        </IconButton>
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>

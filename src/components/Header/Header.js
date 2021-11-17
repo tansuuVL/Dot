@@ -17,6 +17,8 @@ import MoreIcon from "@material-ui/icons/MoreVert";
 import MyLink from "../../shared/MyLink";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { useProducts } from "../../contexts/ProductsContext";
+import Search from "./Search";
+import { ClickAwayListener } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -80,6 +82,11 @@ const useStyles = makeStyles((theme) => ({
       display: "none",
     },
   },
+  searchBox: {
+    position: "absolute",
+    top: "35px",
+    zIndex: 999,
+  },
 }));
 
 export default function Header() {
@@ -87,10 +94,15 @@ export default function Header() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
-  const { cartData } = useProducts(); // get length of cart
+  const [searchActive, setSearchActive] = React.useState(false);
+
+  const { cartData, fetchSearchProducts } = useProducts(); // get length of cart
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const handleSearch = (e) => {
+    fetchSearchProducts(e.target.value);
+  };
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -183,19 +195,29 @@ export default function Header() {
               Akim Shop
             </Typography>
           </MyLink>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
+          <ClickAwayListener onClickAway={() => setSearchActive(false)}>
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                onFocus={() => setSearchActive(true)}
+                placeholder="Search…"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                onChange={handleSearch}
+                inputProps={{ "aria-label": "search" }}
+              />
+              {searchActive && (
+                <div className={classes.searchBox}>
+                  <Search />
+                </div>
+              )}
             </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ "aria-label": "search" }}
-            />
-          </div>
+          </ClickAwayListener>
+
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <MyLink to="/cart">

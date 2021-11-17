@@ -29,7 +29,10 @@ const Content = () => {
 
   useEffect(() => {
     fetchProducts();
-  }, [window.location.search]);
+    // if (window.location.search) {
+    //   window.location.search = "";
+    // }
+  }, [location.search]);
 
   return (
     <Grid item md={9}>

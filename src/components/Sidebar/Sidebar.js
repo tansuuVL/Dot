@@ -21,13 +21,16 @@ const useStyles = makeStyles((theme) => ({
 
 const Sidebar = () => {
   const classes = useStyles();
-  const [slider, setSlider] = useState();
+  const [slider, setSlider] = useState([200, 15000]);
 
-  const { fetchByParams } = useProducts([200, 15000]);
+  const { fetchByParams } = useProducts();
 
   const handleSlider = (e, value) => {
     setSlider(value);
-    fetchByParams("price_lte", value);
+    // console.log(value)
+  };
+  const handleFilterPrice = () => {
+    fetchByParams("price_lte", slider);
   };
 
   return (
@@ -97,10 +100,10 @@ const Sidebar = () => {
             min={200}
             max={20000}
             value={slider}
+            onChangeCommitted={handleFilterPrice}
             onChange={handleSlider}
             valueLabelDisplay="auto"
             aria-labelledby="range-slider"
-            // getAriaValueText={valuetext}
           />
         </Grid>
       </Paper>
