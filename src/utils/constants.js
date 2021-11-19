@@ -10,3 +10,5 @@ export const ADD_AND_DELETE_PRODUCT_IN_CART = "ADD_AND_DELETE_PRODUCT_IN_CART";
 export const GET_CART = "GET_CART";
 
 export const SET_SEARCH_RESULTS = "SET_SEARCH_RESULTS";
+
+export const SET_USER = "SET_USER";

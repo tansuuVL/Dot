@@ -1,6 +1,7 @@
+import axios from "axios";
 import React, { createContext, useContext, useReducer } from "react";
 import { useLocation, useNavigate } from "react-router";
-import { $api } from "../service/axios-config";
+import { $api, API } from "../service/axios-config";
 import { calcSubPrice, calcTotalPrice } from "../utils/calc";
 import { checkItemInCart } from "../utils/check-item-cart";
 import {
@@ -241,6 +242,23 @@ const ProductsContext = ({ children }) => {
     }
   };
 
+  const addProduct = async (newProduct) => {
+    console.log(newProduct);
+
+    try {
+      await $api.post("/", newProduct);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const deleteProduct = async (id) => {
+    try {
+      await $api.delete(`/${id}`);
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
   const values = {
     products: state.products,
     loading: state.loading,
@@ -258,6 +276,8 @@ const ProductsContext = ({ children }) => {
     changeProductCount,
     fetchByParams,
     fetchSearchProducts,
+    addProduct,
+    deleteProduct,
   };
 
   return (

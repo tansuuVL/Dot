@@ -18,7 +18,8 @@ import MyLink from "../../shared/MyLink";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { useProducts } from "../../contexts/ProductsContext";
 import Search from "./Search";
-import { ClickAwayListener } from "@material-ui/core";
+import { Button, ClickAwayListener } from "@material-ui/core";
+import { useAuth } from "../../contexts/AuthContext";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -87,6 +88,10 @@ const useStyles = makeStyles((theme) => ({
     top: "35px",
     zIndex: 999,
   },
+  shop: {
+    display: "flex",
+    alignItems: "center",
+  },
 }));
 
 export default function Header() {
@@ -97,6 +102,7 @@ export default function Header() {
   const [searchActive, setSearchActive] = React.useState(false);
 
   const { cartData, fetchSearchProducts } = useProducts(); // get length of cart
+  const { registerUser, user, logOut } = useAuth(); // sign in with google
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -220,7 +226,31 @@ export default function Header() {
 
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <MyLink to="/cart">
+            <MyLink to="/add">
+              <IconButton>
+                <Button variant="outlined" color="inherit">
+                  Add new phone
+                </Button>
+              </IconButton>
+            </MyLink>
+            {/* <MyLink to="/register"> */}
+            {user ? (
+              <>
+                <p>{user.email}</p>
+                <IconButton onClick={() => logOut()}>
+                  <Button variant="contained">Log out</Button>
+                </IconButton>
+              </>
+            ) : (
+              <IconButton color="inherit">
+                <Button onClick={() => registerUser()} variant="contained">
+                  Sign Up
+                </Button>
+              </IconButton>
+            )}
+
+            {/* </MyLink> */}
+            <MyLink to="/cart" className={classes.shop}>
               <IconButton aria-label="show 2 new mails" color="inherit">
                 <Badge badgeContent={cartData} color="secondary">
                   <ShoppingCartIcon />

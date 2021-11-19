@@ -25,17 +25,6 @@
       "countInStock": 20
     },
     {
-      "id": 2,
-      "title": "Iphone XR",
-      "description": "Смартфон iPhone Xs обладает хорошей камерой на 12+12 Мп и батареей емкостью мАч. Оперативной памяти на 4 ГБ хватает для стабильной работы системы, объем встроенной памяти составляет 64 ГБ.",
-      "price": 3000,
-      "phone": "+996 700 312 312",
-      "author": "Steve Jobs",
-      "category": "256",
-      "image": "https://cdn.dxomark.com/wp-content/uploads/drafts/post-95995/Apple-iPhone-13-featured-image-packshot-review.jpg",
-      "countInStock": 20
-    },
-    {
       "id": 3,
       "title": "Iphone XR",
       "description": "Смартфон iPhone Xs обладает хорошей камерой на 12+12 Мп и батареей емкостью мАч. Оперативной памяти на 4 ГБ хватает для стабильной работы системы, объем встроенной памяти составляет 64 ГБ.",
@@ -177,6 +166,17 @@
       "category": "128",
       "image": "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-12-purple-select-2021?wid=470&hei=556&fmt=jpeg&qlt=95&.v=1617130317000",
       "countInStock": 20
+    },
+    {
+      "title": "MacBook",
+      "image": "https://media.istockphoto.com/photos/laptop-on-white-table-picture-id506061551?k=20&m=506061551&s=612x612&w=0&h=RS6Bnv3sV2OYzD9y3lF8wN8q54045XWHJ0tvlYIC_Q0=",
+      "price": "3456",
+      "description": "\"MacBook\" is a term used for a brand of Mac notebook computers that Apple started producing in 2006. The American multinational corporation created MacBook computers when it consolidated its PowerBook and iBook lines during its transition to Intel processor-based products.",
+      "category": "66",
+      "author": "apple",
+      "phone": "+996 312 456789",
+      "countInStock": "2",
+      "id": 16
     }
   ]
 }

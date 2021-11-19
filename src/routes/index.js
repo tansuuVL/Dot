@@ -6,6 +6,10 @@ import CartPage from "../pages/CardPage";
 
 import Payment from "../pages/Payment";
 
+import AddNewProduct from "../pages/AddNewProduct";
+import Register from "../components/Auth/Register";
+import AuthPage from "../pages/AuthPage";
+
 const AppRoutes = () => {
   return (
     <Routes>
@@ -13,6 +17,8 @@ const AppRoutes = () => {
       <Route path="/product/:id" element={<Product />} />
       <Route path="/cart" element={<CartPage />} />
       <Route path="/payment" element={<Payment />} />
+      <Route path="/add" element={<AddNewProduct />} />
+      <Route path="/register" element={<AuthPage />} />
     </Routes>
   );
 };

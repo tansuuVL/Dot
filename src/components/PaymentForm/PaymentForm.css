@@ -11,7 +11,8 @@ h1 {
 form {
   align-items: center;
 }
-input {
+input,
+textarea {
   display: block;
   margin: 10px auto;
   padding: 8px 16px;
@@ -37,4 +38,7 @@ input {
   display: flex;
   justify-content: center;
   padding: 10px;
+}
+.valid {
+  width: 150px;
 }

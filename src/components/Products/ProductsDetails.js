@@ -1,6 +1,6 @@
-import { Grid, Paper, makeStyles } from "@material-ui/core";
+import { Grid, Paper, makeStyles, Button } from "@material-ui/core";
 import React, { useEffect } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useProducts } from "../../contexts/ProductsContext";
 import MySpinner from "../../shared/MySpinner";
 import {
@@ -29,11 +29,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ProductsDetails = () => {
-  const { fetchOneProduct, productDetails } = useProducts();
+  const { fetchOneProduct, productDetails, deleteProduct } = useProducts();
   const { id } = useParams();
+
+  const navigate = useNavigate();
   useEffect(() => {
     fetchOneProduct(id);
-  }, []);
+  }, [id]);
+
+  const handleRedirectAfterDelete = () => {
+    deleteProduct(id);
+    navigate("/");
+  };
   const classes = useStyles();
   return (
     <Grid container>
@@ -109,6 +116,13 @@ const ProductsDetails = () => {
                 </tbody>
               </table>
             </Paper>
+            <Button
+              onClick={() => handleRedirectAfterDelete(productDetails.id)}
+              variant="contained"
+              color="secondary"
+            >
+              Delete
+            </Button>
           </Grid>
         </Grid>
       ) : (

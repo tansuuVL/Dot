@@ -59,6 +59,7 @@ const PaymentForm = () => {
                 onFocus={(e) => setFocus(e.target.name)}
               />
               <input
+                className="valid"
                 width="60px"
                 type="tel"
                 name="expiry"
