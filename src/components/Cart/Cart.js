@@ -15,101 +15,144 @@ import { IconButton } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 
 const useStyles = makeStyles({
-  table: {
-    minWidth: 650,
-  },
+    table: {
+        minWidth: 650,
+    },
 });
 
 const Cart = () => {
-  const { cart, getCart, changeProductCount } = useProducts();
+    const { cart, getCart, changeProductCount, deleteProductFromCart } =
+        useProducts();
 
-  useEffect(() => {
-    getCart();
-  }, []);
-  console.log(cart.product);
-  const classes = useStyles();
+    useEffect(() => {
+        getCart();
+    }, []);
+    console.log(cart.product);
+    const classes = useStyles();
 
-  const handleCountChange = ({ value }, id) => {
-    changeProductCount(value, id);
-  };
+    const handleCountChange = ({ value }, id) => {
+        changeProductCount(value, id);
+    };
 
-  return (
-    <div>
-      {cart && cart.products ? (
-        <>
-          {
-            <TableContainer component={Paper}>
-              <Table className={classes.table} aria-label="caption table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>
-                      <h2>Your shopping list</h2>
-                    </TableCell>
+    return (
+        <div>
+            {cart && cart.products ? (
+                <>
+                    {
+                        <TableContainer component={Paper}>
+                            <Table
+                                className={classes.table}
+                                aria-label="caption table"
+                            >
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell>
+                                            <h2>Your favorite one</h2>
+                                        </TableCell>
 
-                    <TableCell align="center">Image</TableCell>
+                                        <TableCell align="center">
+                                            Image
+                                        </TableCell>
 
-                    <TableCell align="center">Price</TableCell>
-                    <TableCell align="center">Count</TableCell>
-                    <TableCell align="center">SubTotal</TableCell>
-                    <TableCell align="center">Delete an item</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {cart.products.map((item) => (
-                    <TableRow key={item.product.id}>
-                      <TableCell component="th" scope="">
-                        {item.product.title}
-                      </TableCell>
-                      <TableCell align="center">
-                        <img
-                          src={item.product.image}
-                          alt=""
-                          style={{ width: "100px" }}
-                        />
-                      </TableCell>
+                                        <TableCell align="center">
+                                            Price
+                                        </TableCell>
+                                        <TableCell align="center">
+                                            Count
+                                        </TableCell>
+                                        <TableCell align="center">
+                                            SubTotal
+                                        </TableCell>
+                                        <TableCell align="center">
+                                            Delete an item
+                                        </TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {cart.products.map((item) => (
+                                        <TableRow key={item.product.id}>
+                                            <TableCell component="th" scope="">
+                                                {item.product.title}
+                                            </TableCell>
+                                            <TableCell align="center">
+                                                <img
+                                                    src={item.product.image}
+                                                    alt=""
+                                                    style={{ width: "100px" }}
+                                                />
+                                            </TableCell>
 
-                      <TableCell align="center">{item.product.price}</TableCell>
-                      <TableCell align="center">
-                        <input
-                          type="number"
-                          value={item.count}
-                          onChange={(e) =>
-                            handleCountChange(e.target, item.product.id)
-                          }
-                        />
-                      </TableCell>
+                                            <TableCell align="center">
+                                                {item.product.price}
+                                            </TableCell>
+                                            <TableCell align="center">
+                                                <input
+                                                    type="number"
+                                                    value={item.count}
+                                                    onChange={(e) =>
+                                                        handleCountChange(
+                                                            e.target,
+                                                            item.product.id
+                                                        )
+                                                    }
+                                                    style={{
+                                                        backgroundColor:
+                                                            "white",
+                                                        color: "black",
+                                                        borderRadius: "0px",
+                                                        border: "solid 1px black",
+                                                    }}
+                                                />
+                                            </TableCell>
 
-                      <TableCell align="center">{item.subPrice}</TableCell>
-                      <TableCell align="center">
-                        <IconButton align="center">
-                          <DeleteIcon />
-                        </IconButton>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    marginLeft: "100px",
-                    padding: "10px",
-                  }}
-                >
-                  <h3 align="center">
-                    Total : {calcTotalPrice(cart.products)}
-                  </h3>
-                  <MyLink to="/payment">
-                    <Button variant="contained" color="secondary">
-                      Оплатить
-                    </Button>
-                  </MyLink>
-                </div>
-              </Table>
-            </TableContainer>
-          }
-          {/* <table>
+                                            <TableCell align="center">
+                                                {item.subPrice}
+                                            </TableCell>
+                                            <TableCell align="center">
+                                                <IconButton
+                                                    align="center"
+                                                    onClick={() =>
+                                                        deleteProductFromCart(
+                                                            item.product
+                                                        )
+                                                    }
+                                                >
+                                                    <DeleteIcon />
+                                                </IconButton>
+                                            </TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        justifyContent: "space-between",
+                                        alignItems: "center",
+                                        marginLeft: "100px",
+                                        padding: "10px",
+                                    }}
+                                >
+                                    <h3 align="center">
+                                        Total : {calcTotalPrice(cart.products)}{" "}
+                                        $
+                                    </h3>
+                                    <MyLink to="/payment">
+                                        <Button
+                                            variant="contained"
+                                            style={{
+                                                backgroundColor: "black",
+                                                color: "white",
+                                                borderRadius: "0px",
+                                            }}
+                                        >
+                                            Оплатить
+                                        </Button>
+                                    </MyLink>
+                                </div>
+                            </Table>
+                        </TableContainer>
+                    }
+                    {/* <table>
             <thead>
               <tr>
                 <th>Image</th>
@@ -141,12 +184,12 @@ const Cart = () => {
           </table>
           <h4>Total: {calcTotalPrice(cart.products)}</h4>
           <button>Оплатить</button> */}
-        </>
-      ) : (
-        <h1>Cart is empty</h1>
-      )}
-    </div>
-  );
+                </>
+            ) : (
+                <h1>Cart is empty</h1>
+            )}
+        </div>
+    );
 };
 
 export default Cart;
